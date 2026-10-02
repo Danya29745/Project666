@@ -1318,3 +1318,169 @@ img{
 @media (prefers-reduced-motion:reduce){.bk-step--reveal.is-open,.bk-toast{transition:none}}
 /* Booking flow: options that do not belong to the selected scenario are removed from the layout. */
 #bkNoFishingPill[hidden]{display:none!important}
+
+/* =========================================================
+   STAGE 1 — визуальная чистка от избыточного AI/glass UI
+   Только внешний вид. JS, ссылки, карта и логика не изменяются.
+   ========================================================= */
+
+/* Header: чистая поверхность вместо постоянного стекла */
+.top{
+  background:var(--bg-cover);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+
+/* Hero: убираем декоративное свечение текста */
+.hero h1,
+.hero p{
+  text-shadow:none;
+}
+
+/* Кнопки: оставляем объём, но без glow и "подпрыгивания" */
+.btn--solid{
+  box-shadow:0 4px 12px rgba(124,54,24,.18);
+}
+.btn--solid:hover{
+  transform:none;
+  box-shadow:0 5px 14px rgba(124,54,24,.22);
+}
+.btn--ghost:hover,
+.btn--about:hover,
+.btn--green:hover{
+  transform:none;
+}
+.btn--about,
+.btn--green{
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  box-shadow:0 4px 12px rgba(8,28,20,.14);
+}
+.btn--about:hover,
+.btn--green:hover{
+  box-shadow:0 5px 14px rgba(8,28,20,.18);
+}
+
+/* Quick links: больше не выглядят как ряд стеклянных капсул */
+.ql-card{
+  background:var(--brand);
+  border:1px solid rgba(143,211,155,.38);
+  border-radius:8px;
+  box-shadow:0 3px 10px rgba(8,28,20,.14);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  transition:background .18s ease,border-color .18s ease,color .18s ease;
+}
+.ql-card:hover{
+  background:var(--p-river-mid);
+  border-color:rgba(203,171,108,.58);
+  transform:none;
+  box-shadow:0 4px 12px rgba(8,28,20,.16);
+}
+.ql-card:hover .ql-label{color:#fff;}
+
+/* Секции: вместо постоянного размытия — ровная, спокойная поверхность */
+.section::before,
+.section--alt::before{
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+}
+.section--alt::before{
+  background:color-mix(in srgb,var(--bg-alt) 92%,transparent);
+}
+.section:not(#price)::after{
+  display:none;
+}
+
+/* Обычные информационные карточки: меньше "AI-card" эффекта */
+.stub,
+.tip-card,
+.rule,
+.contact-side,
+.rule-card,
+.ledger{
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  border-radius:10px;
+  box-shadow:var(--shadow-rest);
+}
+.stub:hover,
+.tip-card:hover,
+.rule:hover,
+.rule-card:hover{
+  transform:none;
+  box-shadow:var(--shadow-rest);
+}
+
+/* Неактивные карточки остаются материальными, но без стекла */
+.stub,
+.tip-card,
+.rule,
+.contact-side,
+.rule-card{
+  background:var(--bg);
+}
+.stub.featured{
+  box-shadow:0 8px 20px rgba(15,38,34,.18);
+}
+.stub.featured:hover{
+  box-shadow:0 8px 20px rgba(15,38,34,.18);
+}
+
+/* Фотокарточки: сохраняем глубину только там, где она помогает изображению */
+.stay-carousel{
+  border-radius:12px;
+  box-shadow:0 10px 24px rgba(6,12,8,.22);
+}
+
+/* Внутренние элементы фото остаются читаемыми, но без стеклянного HUD */
+.stay-nav,
+.stay-counter{
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  box-shadow:0 3px 10px rgba(0,0,0,.18);
+}
+
+/* Важное исключение: карта, её маркеры, подсветки и скроллы не меняются этим этапом. */
+.map-marker,
+.map-marker .map-pin,
+.map-marker .map-pin img,
+.map-marker.is-selected .map-pin img,
+.map-hl,
+.map-hl .map-pin img,
+.territory-map,
+.map-scroll{
+  /* намеренно без переопределений */
+}
+
+/* Формы и модальные окна: blur оставляем только там, где он выполняет роль overlay */
+.about-modal,
+.lightbox{
+  /* intentionally unchanged */
+}
+
+/* Мобильная версия: ещё спокойнее, но без удаления функциональных эффектов */
+@media (max-width:680px){
+  .top{
+    background:rgba(15,38,34,.98);
+  }
+  .hero h1,
+  .hero p{
+    text-shadow:none;
+  }
+  .ql-card{
+    border-radius:7px;
+    box-shadow:0 2px 7px rgba(8,28,20,.12);
+  }
+  .ql-card:hover{
+    box-shadow:0 2px 7px rgba(8,28,20,.12);
+  }
+  .stub,
+  .tip-card,
+  .rule,
+  .contact-side,
+  .rule-card{
+    border-radius:9px;
+  }
+}
